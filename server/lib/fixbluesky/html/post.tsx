@@ -2,7 +2,6 @@
 import { BskyPost } from "~/lib/bluesky/posts.ts";
 import { OEmbedLinks } from "../oembed/links.ts";
 import { makeRedirect } from "./layout.tsx";
-import { parseURL, joinURL } from "ufo";
 
 export interface PostRedirectProps {
   post: BskyPost;
@@ -14,7 +13,7 @@ function postURIToURL(uri: string) {
   if (protocol !== "at:" || skip !== "" || type !== "app.bsky.feed.post") {
     throw new Error("Sanity check failed, malformed post URI");
   }
-  return joinURL("https://bsky.app/", `/profile/${actor}/post/${postRecordId}`);
+  return `https://bsky.app/profile/${actor}/post/${postRecordId}`;
 }
 
 export function makePostRedirect({ post, oEmbedLinks }: PostRedirectProps) {
