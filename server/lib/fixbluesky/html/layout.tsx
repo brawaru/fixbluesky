@@ -23,6 +23,7 @@ export function makeRedirect({ url, children }: LayoutProps) {
         <link rel="canonical" href={url} />
         {children}
         <meta http-equiv="refresh" content={`0;url=${url}`} />
+        <meta property="robots" content="noindex" />
       </html>
       <body>
         <script>{`location.href = ${JSON.stringify(url)};`}</script>
