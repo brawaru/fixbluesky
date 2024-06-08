@@ -18,5 +18,6 @@ export default cachedEventHandler(
     swr: true,
     staleMaxAge: 3_600,
     maxAge: 1_800,
+    varies: ["host", "x-forwarded-host", "x-forwarded-proto"],
   }
 );
