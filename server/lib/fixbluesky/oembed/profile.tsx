@@ -75,7 +75,7 @@ async function invoke({ event, agent, cache, params, format }: OEmbedContext) {
           <provider_name>Bluesky</provider_name>
           <provider_url>https://bsky.app</provider_url>
           <author_name>{authorName}</author_name>
-          <author_url>{`https://bsky.app/profile/${profile.handle}`}</author_url>
+          <author_url>{`https://bsky.app/profile/${profile.did}`}</author_url>
           {avatarMeta}
         </oembed>
       </>
