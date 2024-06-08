@@ -12,7 +12,7 @@ export default cachedEventHandler(
       return sendFBSError(event, "json", err.code, err.details);
     }
 
-    return profile;
+    return sendJSON(event, profile);
   },
   {
     swr: true,

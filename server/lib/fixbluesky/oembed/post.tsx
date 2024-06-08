@@ -1,9 +1,9 @@
 /** @jsxImportSource xastscript */
-import { encodeHTML, encodeXML } from "entities";
-import { OEmbedContext } from "./types";
-import { getPostData } from "../posts";
+import { encodeHTML } from "entities";
 import { decode } from "ufo";
 import { u } from "unist-builder";
+import { getPostData } from "../posts";
+import { OEmbedContext } from "./types";
 
 function assertParameters<P extends Record<string, any>>(
   params?: P | undefined
@@ -71,27 +71,19 @@ async function invoke({ event, agent, cache, params, format }: OEmbedContext) {
   }
 
   if (format === "json") {
-    return send(
-      event,
-      JSON.stringify(
-        {
-          version: "1.0",
-          type: "link",
-          provider_name: "Bluesky",
-          provider_url: "https://bsky.app/",
-          title,
-          author_name: authorName,
-          author_url: `https://bsky.app/profile/${author.did}`,
-          thumbnail_url: author.avatar ?? undefined,
-          thumbnail_width: author.avatar ? 1000 : undefined,
-          thumbnail_height: author.avatar ? 1000 : undefined,
-          html,
-        },
-        null,
-        2
-      ),
-      "application/json"
-    );
+    return sendJSON(event, {
+      version: "1.0",
+      type: "link",
+      provider_name: "Bluesky",
+      provider_url: "https://bsky.app/",
+      title,
+      author_name: authorName,
+      author_url: `https://bsky.app/profile/${author.did}`,
+      thumbnail_url: author.avatar ?? undefined,
+      thumbnail_width: author.avatar ? 1000 : undefined,
+      thumbnail_height: author.avatar ? 1000 : undefined,
+      html,
+    });
   } else if (format === "xml") {
     // let xmlBody = '<?xml version="1.0" encoding="utf-8" standalone="yes"?>';
     // xmlBody += "<oembed>";

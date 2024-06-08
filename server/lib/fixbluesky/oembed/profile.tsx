@@ -1,8 +1,8 @@
 /** @jsxImportSource xastscript */
-import { getProfileData } from "../profiles";
-import { OEmbedContext } from "./types";
 import { decode } from "ufo";
 import { u } from "unist-builder";
+import { getProfileData } from "../profiles";
+import { OEmbedContext } from "./types";
 
 async function invoke({ event, agent, cache, params, format }: OEmbedContext) {
   if (params == null || !("user" in params)) {
@@ -38,25 +38,17 @@ async function invoke({ event, agent, cache, params, format }: OEmbedContext) {
     : `@${profile.handle}`;
 
   if (format === "json") {
-    return send(
-      event,
-      JSON.stringify(
-        {
-          version: "1.0",
-          type: "link",
-          provider_name: "Bluesky",
-          provider_url: "https://bsky.app/",
-          author_name: authorName,
-          author_url: `https://bsky.app/profile/${profile.did}`,
-          thumbnail_url: profile.avatar ?? undefined,
-          thumbnail_width: profile.avatar ? 1000 : undefined,
-          thumbnail_height: profile.avatar ? 1000 : undefined,
-        },
-        null,
-        2
-      ),
-      "application/json"
-    );
+    return sendJSON(event, {
+      version: "1.0",
+      type: "link",
+      provider_name: "Bluesky",
+      provider_url: "https://bsky.app/",
+      author_name: authorName,
+      author_url: `https://bsky.app/profile/${profile.did}`,
+      thumbnail_url: profile.avatar ?? undefined,
+      thumbnail_width: profile.avatar ? 1000 : undefined,
+      thumbnail_height: profile.avatar ? 1000 : undefined,
+    });
   } else if (format === "xml") {
     let avatarMeta;
     if (profile.avatar != null) {
