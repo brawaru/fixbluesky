@@ -22,7 +22,11 @@ export default cachedEventHandler(
 
     if (reqUrlObj.host === "localhost" && !process.dev) {
       console.warn(
-        `Non-dev resolved host as ${reqUrlObj.host}. This is likely a mistake and needs mitigation`
+        `Non-dev resolved host as ${reqUrlObj.host}. This is likely a mistake and needs mitigation`,
+        {
+          host: getRequestHeader(event, "host"),
+          xForwardedHost: getRequestHeader(event, "x-forwarded-host"),
+        }
       );
     }
 
