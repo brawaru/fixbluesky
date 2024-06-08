@@ -41,7 +41,7 @@ function getBskyStorageMount(): StorageMounts[string] | undefined {
     case "cloudflare-kv": {
       if (process.env.CF_KV_BINDING_BSKY) {
         return {
-          driver: "~/server/storage/cached-cloudflare-kv-binding",
+          driver: "~/storage/cached-cloudflare-kv-binding",
           binding: process.env.CF_KV_BINDING_BSKY,
         };
       }
@@ -60,7 +60,7 @@ function getBskyStorageMount(): StorageMounts[string] | undefined {
 
       if (!missingVars.length) {
         return {
-          driver: "~/server/storage/cached-vercel-kv",
+          driver: "~/storage/cached-vercel-kv",
           base: process.env.KV_BSKY_BASE || "bsky",
           url: process.env.KV_BSKY_REST_API_URL,
           token: process.env.KV_BSKY_REST_API_TOKEN,
