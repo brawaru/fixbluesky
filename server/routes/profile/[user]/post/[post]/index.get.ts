@@ -15,14 +15,20 @@ export default cachedEventHandler(
       return sendFBSError(event, "json", err.code, err.details);
     }
 
+    const reqUrlObj = getRequestURL(event, {
+      xForwardedHost: true,
+      xForwardedProto: true,
+    });
+
+    if (reqUrlObj.host === "localhost" && !process.dev) {
+      console.warn(
+        `Non-dev resolved host as ${reqUrlObj.host}. This is likely a mistake and needs mitigation`
+      );
+    }
+
     let oEmbedLinks;
     try {
-      oEmbedLinks = getOEmbedLinks(
-        getRequestURL(event, {
-          xForwardedHost: true,
-          xForwardedProto: true,
-        })
-      );
+      oEmbedLinks = getOEmbedLinks(reqUrlObj);
     } catch {}
 
     return sendHTML(event, makePostRedirect({ post, oEmbedLinks }));
