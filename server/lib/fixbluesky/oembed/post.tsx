@@ -85,26 +85,6 @@ async function invoke({ event, agent, cache, params, format }: OEmbedContext) {
       html,
     });
   } else if (format === "xml") {
-    // let xmlBody = '<?xml version="1.0" encoding="utf-8" standalone="yes"?>';
-    // xmlBody += "<oembed>";
-    // xmlBody += "  <version>1.0</version>";
-    // xmlBody += "  <type>link</type>";
-    // xmlBody += "  <provider_name>Bluesky</provider_name>";
-    // xmlBody += "  <provider_url>https://bsky.app/</provider_url>";
-    // xmlBody += `  <title>${encodeXML(title)}</title>`;
-    // xmlBody += `  <author_name>${encodeXML(authorName)}</author_name>`;
-    // xmlBody += `  <author_url>${encodeXML(
-    //   `https://bsky.app/profile/${author.did}`
-    // )}</author_url>`;
-    // if (author.avatar) {
-    //   xmlBody += `  <thumbnail_url>${encodeXML(author.avatar)}</thumbnail_url>`;
-    //   xmlBody += "  <thumbnail_width>1000</thumbnail_width>";
-    //   xmlBody += "  <thumbnail_height>1000</thumbnail_height>";
-    // }
-    // xmlBody += `  <html>${encodeXML(html)}</html>`;
-    // xmlBody += "</oembed>";
-    // send(event, xmlBody, "application/xml");
-
     let thumbnailMeta;
     if (author.avatar) {
       thumbnailMeta = (
