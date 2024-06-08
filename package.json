@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nitro build",
+    "dev": "nitro dev",
+    "prepare": "nitro prepare",
+    "preview": "node .output/server/index.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240605.0",
+    "nitropack": "latest"
+  },
+  "packageManager": "pnpm@9.2.0",
+  "dependencies": {
+    "@atproto/api": "^0.12.17",
+    "@atproto/syntax": "^0.3.0",
+    "@atproto/xrpc": "^0.5.0",
+    "@vercel/kv": "^2.0.0",
+    "entities": "^4.5.0",
+    "hast-util-to-html": "^9.0.1",
+    "hastscript": "^9.0.0",
+    "unist-builder": "^4.0.0",
+    "xast-util-to-xml": "^4.0.0",
+    "xastscript": "^4.0.0"
+  }
+}
