@@ -18,8 +18,27 @@ function postURIToURL(uri: string) {
 }
 
 export function makePostRedirect({ post, oEmbedLinks }: PostRedirectProps) {
+  let twitterCardType = "summary";
+
   let imagesMeta;
-  if (post.images != null) {
+  if (post.images == null) {
+    const { author } = post;
+    if (author.avatar != null) {
+      imagesMeta = (
+        <>
+          <meta property="og:image" content={post.author.avatar} />
+          <meta
+            property="og:image:alt"
+            content={
+              author.displayName != null
+                ? `Avatar of ${author.displayName} (@${author.handle})`
+                : `Avatar of @${author.handle}`
+            }
+          />
+        </>
+      );
+    }
+  } else {
     const imagesMetaEnumeration = post.images.map((image) => {
       let imageSizes;
       if (image.aspectRatio != null) {
@@ -47,12 +66,8 @@ export function makePostRedirect({ post, oEmbedLinks }: PostRedirectProps) {
       );
     });
 
-    imagesMeta = (
-      <>
-        {imagesMetaEnumeration}
-        <meta content="summary_large_image" property="twitter:card" />
-      </>
-    );
+    imagesMeta = <>{imagesMetaEnumeration}</>;
+    twitterCardType = "summary_large_image";
   }
 
   let oEmbedLinksMeta;
@@ -78,6 +93,7 @@ export function makePostRedirect({ post, oEmbedLinks }: PostRedirectProps) {
         <meta property="og:description" content={post.text} />
         <meta property="og:locale" content={post.lang} />
         <meta property="og:site_name" content={"Bluesky"} />
+        <meta property="twitter:card" content={twitterCardType} />
         {imagesMeta}
         {oEmbedLinksMeta}
       </>

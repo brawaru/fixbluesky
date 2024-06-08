@@ -43,6 +43,28 @@ function useSessionStore() {
   };
 }
 
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      /**
+       * Link to a Bluesky AT service where the agent will try to connect.
+       * @default "https://bsky.social"
+       */
+      BSKY_AGENT_SERVICE?: string;
+
+      /**
+       * Identifier of the account that the agent will use to connect to the Bluesky service.
+       */
+      BSKY_AUTH_LOGIN?: string;
+
+      /**
+       * Password for the account that the agent will use to connect to the Bluesky service.
+       */
+      BSKY_AUTH_PASSWORD?: string;
+    }
+  }
+}
+
 export default defineNitroPlugin((nitro) => {
   const service = process.env.BSKY_AGENT_SERVICE ?? "https://bsky.social";
   const identifier = process.env.BSKY_AUTH_LOGIN!;
