@@ -3,8 +3,7 @@ import { getStorageMounts } from "./config/storage";
 //https://nitro.unjs.io/config
 export default defineNitroConfig({
   srcDir: "server",
-  storage:
-    process.env.NODE_ENV === "production" ? getStorageMounts() : undefined,
+  storage: getStorageMounts(),
   devStorage: {
     bsky: {
       driver: "fs",
